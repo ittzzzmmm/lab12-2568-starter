@@ -111,32 +111,22 @@ export default function HomePage() {
                       Due: {task.dueDate.toLocaleDateString()}
                     </Text>
                   )}
-                  {/* แสดง Date & Time */}
-                  <Text size="xs" c="gray">
-                    Done at:
-                  </Text>
+                  {task.dueDate && task.isDone &&(
+                    <Text size="xs" c="sitiroj">
+                      Done at: {task.dueDate.toLocaleDateString()} , {task.dueDate.toLocaleTimeString()}
+                    </Text>
+                  )}
                 </Stack>
                 {/* แสดง Button Done & Button Delete */}
                 <Group>
-                  <Button
-                    style={{
-                      backgroundColor: "#71c32fda",
-                      color: "#dce6e7ff",
-                    }}
-                    variant="light"
-                    size="xs"
-                    onClick={() => toggleDoneTask(task.id)}
-                  >
-                    Done
-                  </Button>
-                  <Button
-                    color="chanadda"
-                    variant="light"
-                    size="xs"
-                    onClick={() => deleteTask(task.id)}
-                  >
-                    Delete
-                  </Button>
+                  <Checkbox
+                    checked={task.isDone}
+                    label="Done"
+                    onChange={() => {toggleDoneTask(task.id); task.dueDate=new Date()}}
+                  />
+                  <ActionIcon variant="light" color="red" aria-label="Settings" onClick={() => deleteTask(task.id)}>
+                    <IconTrash stroke={2} />
+                  </ActionIcon>
                 </Group>
               </Group>
             </Card>
